@@ -1,0 +1,745 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>All-in-One AI Sales Platform | rTechCoding</title>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --primary: #0052ff;
+      --primary-hover: #0041cc;
+      --bg-gradient: radial-gradient(circle at 50% 50%, #f4f7fe 0%, #fcfdfe 100%);
+      --crm_card-bg: #ffffff;
+      --crm_card-border: rgba(0, 0, 0, 0.04);
+      --crm_card-shadow: 0 4px 20px rgba(0, 0, 0, 0.02), 0 1px 3px rgba(0, 0, 0, 0.01);
+      --text-main: #0f172a;
+      --text-muted: #64748b;
+    }
+
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    body {
+      font-family: 'Inter', sans-serif;
+      background: #fcfdfe;
+      background-image: var(--bg-gradient);
+      color: var(--text-main);
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      padding: 40px 20px;
+      overflow-x: hidden;
+    }
+
+    /* Header */
+    .header {
+      text-align: center;
+      max-width: 800px;
+      margin-bottom: 30px;
+    }
+    .header-tag {
+      color: var(--primary);
+      font-size: 13px;
+      font-weight: 700;
+      letter-spacing: 1.5px;
+      text-transform: uppercase;
+      margin-bottom: 12px;
+      display: inline-block;
+    }
+    .header-tag::before, .header-tag::after {
+      content: " — ";
+      color: var(--primary);
+    }
+    .header-title {
+      font-size: 42px;
+      font-weight: 800;
+      color: var(--text-main);
+      line-height: 1.2;
+      margin-bottom: 16px;
+      letter-spacing: -0.5px;
+    }
+    .header-desc {
+      font-size: 16px;
+      color: var(--text-muted);
+      line-height: 1.6;
+      font-weight: 400;
+    }
+
+    /* Container & Columns */
+    .interactive-container {
+      position: relative;
+      width: 100%;
+      max-width: 1200px;
+      margin: 20px auto;
+    }
+    .interactive-layout {
+      display: grid;
+      grid-template-columns: 340px 1fr 340px;
+      gap: 30px;
+      position: relative;
+      z-index: 2;
+    }
+    .crm_column {
+      display: flex;
+      flex-direction: column;
+      gap: 20px;
+    }
+    .center-column {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: space-between;
+      padding: 10px 0;
+      min-height: 580px;
+    }
+
+    /* Module Card */
+    .module-card {
+      background: var(--crm_card-bg);
+      border: 1px solid var(--crm_card-border);
+      border-radius: 16px;
+      padding: 18px;
+      box-shadow: var(--crm_card-shadow);
+      display: flex;
+      align-items: flex-start;
+      gap: 16px;
+      position: relative;
+      transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+    }
+    .module-card:hover {
+      border-color: var(--theme-color);
+      transform: translateY(-4px);
+      box-shadow: 0 12px 30px rgba(0, 0, 0, 0.04), 0 0 15px var(--theme-bg);
+    }
+
+    .icon-box {
+      width: 44px;
+      height: 44px;
+      border-radius: 10px;
+      background: var(--theme-bg);
+      color: var(--theme-color);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      flex-shrink: 0;
+    }
+    .icon-box svg {
+      width: 22px;
+      height: 22px;
+    }
+
+    .crm_card-content {
+      display: flex;
+      flex-direction: column;
+    }
+    .crm_card-num {
+      font-size: 13px;
+      font-weight: 700;
+      color: var(--theme-color);
+      margin-bottom: 4px;
+    }
+    .crm_card-title {
+      font-size: 15px;
+      font-weight: 700;
+      color: var(--text-main);
+      margin-bottom: 6px;
+      line-height: 1.3;
+    }
+    .crm_card-desc {
+      font-size: 12.5px;
+      color: var(--text-muted);
+      line-height: 1.45;
+    }
+
+    /* Card Dots */
+    .crm_card-dot {
+      position: absolute;
+      width: 9px;
+      height: 9px;
+      border-radius: 50%;
+      background: #ffffff;
+      border: 2px solid var(--theme-color);
+      z-index: 10;
+      box-shadow: 0 0 3px rgba(0, 0, 0, 0.15);
+    }
+    .left-column .crm_card-dot {
+      right: -4.5px;
+      top: 50%;
+      transform: translateY(-50%);
+    }
+    .right-column .crm_card-dot {
+      left: -4.5px;
+      top: 50%;
+      transform: translateY(-50%);
+    }
+    .center-column .crm_card-dot {
+      top: -4.5px;
+      left: 50%;
+      transform: translateX(-50%);
+    }
+
+    /* Central Circle & Pill */
+    .powerful-pill {
+      background: rgba(0, 82, 255, 0.05);
+      border: 1px solid rgba(0, 82, 255, 0.15);
+      color: var(--primary);
+      padding: 6px 14px;
+      border-radius: 9999px;
+      font-size: 11px;
+      font-weight: 700;
+      letter-spacing: 0.5px;
+      margin-bottom: -15px;
+      z-index: 5;
+    }
+
+    .circle-outer {
+      width: 250px;
+      height: 250px;
+      border-radius: 50%;
+      background: #ffffff;
+      border: 1px solid rgba(0, 82, 255, 0.12);
+      box-shadow: 0 10px 40px rgba(0, 82, 255, 0.05);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      position: relative;
+    }
+    .circle-logo {
+      text-align: center;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+    }
+    .circle-logo svg {
+      width: 48px;
+      height: 48px;
+      margin-bottom: 8px;
+    }
+    .circle-logo h3 {
+      font-size: 24px;
+      font-weight: 800;
+      letter-spacing: 1px;
+      color: var(--text-main);
+      margin-bottom: 2px;
+    }
+    .circle-logo p {
+      font-size: 12px;
+      color: var(--primary);
+      font-weight: 600;
+    }
+
+    /* Circle Perimeter Points */
+    .circle-point {
+      position: absolute;
+      width: 7px;
+      height: 7px;
+      border-radius: 50%;
+      background-color: var(--theme-color);
+      left: 50%;
+      top: 50%;
+      margin: -3.5px;
+    }
+    .pt-01 { transform: rotate(218deg) translate(125px); }
+    .pt-02 { transform: rotate(196deg) translate(125px); }
+    .pt-03 { transform: rotate(164deg) translate(125px); }
+    .pt-04 { transform: rotate(142deg) translate(125px); }
+    .pt-06 { transform: rotate(90deg) translate(125px); }
+    .pt-07 { transform: rotate(322deg) translate(125px); }
+    .pt-08 { transform: rotate(344deg) translate(125px); }
+    .pt-09 { transform: rotate(16deg) translate(125px); }
+    .pt-10 { transform: rotate(38deg) translate(125px); }
+
+    /* SVG Lines */
+    .connector-svg {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      pointer-events: none;
+      z-index: 1;
+    }
+    .connector-path {
+      stroke: #e2e8f0;
+      stroke-width: 1.5px;
+      fill: none;
+      transition: stroke 0.3s ease, stroke-width 0.3s ease, opacity 0.3s ease;
+      opacity: 0.8;
+    }
+    .connector-path.active {
+      stroke: var(--theme-color) !important;
+      stroke-width: 2.5px;
+      opacity: 1;
+    }
+
+    /* Footer Bar */
+    .footer-bar-container {
+      width: 100%;
+      max-width: 1080px;
+      margin-top: 35px;
+      margin-bottom: 25px;
+    }
+    .footer-bar {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      background: #edf2fd;
+      border-radius: 14px;
+      padding: 16px 28px;
+    }
+    .footer-item {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      font-weight: 600;
+      font-size: 12.5px;
+      color: var(--text-main);
+    }
+    .footer-divider {
+      width: 1px;
+      height: 20px;
+      background-color: rgba(0, 82, 255, 0.12);
+    }
+    .footer-icon {
+      width: 18px;
+      height: 18px;
+      display: flex;
+      align-items: center;
+    }
+
+    /* CTA Button */
+    .cta-container {
+      margin-bottom: 30px;
+    }
+    .cta-btn {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      background-color: var(--primary);
+      color: #ffffff;
+      text-decoration: none;
+      font-weight: 600;
+      font-size: 14.5px;
+      padding: 13px 26px;
+      border-radius: 8px;
+      box-shadow: 0 4px 14px rgba(0, 82, 255, 0.25);
+      transition: all 0.2s ease-in-out;
+    }
+    .cta-btn:hover {
+      background-color: var(--primary-hover);
+      transform: translateY(-2px);
+      box-shadow: 0 6px 18px rgba(0, 82, 255, 0.35);
+    }
+    .cta-arrow {
+      transition: transform 0.2s ease;
+    }
+    .cta-btn:hover .cta-arrow {
+      transform: translateX(4px);
+    }
+
+    /* Responsive */
+    @media (max-width: 1023px) {
+      body {
+        padding: 30px 15px;
+      }
+      .header-title {
+        font-size: 32px;
+      }
+      .interactive-layout {
+        grid-template-columns: 1fr;
+        gap: 20px;
+        max-width: 500px;
+        margin: 0 auto;
+      }
+      .center-circle, .powerful-pill, .connector-svg, .circle-point, .crm_card-dot {
+        display: none !important;
+      }
+      .center-column {
+        min-height: auto;
+        padding: 0;
+      }
+      .footer-bar {
+        flex-direction: column;
+        gap: 14px;
+        align-items: flex-start;
+      }
+      .footer-divider {
+        display: none;
+      }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- Header -->
+  <header class="header">
+    <span class="header-tag">All-in-One AI Sales Platform</span>
+    <h1 class="header-title">Everything your sales team needs — built to be simple</h1>
+    <p class="header-desc">From finding leads to closing deals, rTechCoding gives you every tool to automate,<br>engage, and grow — all in one platform.</p>
+  </header>
+
+  <!-- Main Section -->
+  <div class="interactive-container">
+    
+    <!-- SVG Connector Lines -->
+    <svg id="connector-svg" class="connector-svg">
+      <path class="connector-path" data-module="01" data-from=".pt-01" data-to=".crm_card-01 .crm_card-dot" />
+      <path class="connector-path" data-module="02" data-from=".pt-02" data-to=".crm_card-02 .crm_card-dot" />
+      <path class="connector-path" data-module="03" data-from=".pt-03" data-to=".crm_card-03 .crm_card-dot" />
+      <path class="connector-path" data-module="04" data-from=".pt-04" data-to=".crm_card-04 .crm_card-dot" />
+      <path class="connector-path" data-module="06" data-from=".pt-06" data-to=".crm_card-06 .crm_card-dot" data-style="straight" />
+      <path class="connector-path" data-module="07" data-from=".pt-07" data-to=".crm_card-07 .crm_card-dot" />
+      <path class="connector-path" data-module="08" data-from=".pt-08" data-to=".crm_card-08 .crm_card-dot" />
+      <path class="connector-path" data-module="09" data-from=".pt-09" data-to=".crm_card-09 .crm_card-dot" />
+      <path class="connector-path" data-module="10" data-from=".pt-10" data-to=".crm_card-10 .crm_card-dot" />
+    </svg>
+
+    <div class="interactive-layout">
+      
+      <!-- Left Column (01-05) -->
+      <div class="crm_column left-column">
+        <!-- Card 01 -->
+        <div class="module-card crm_card-01" data-id="01" style="--theme-color: #0052ff; --theme-bg: rgba(0, 82, 255, 0.06);">
+          <div class="icon-box">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+              <circle cx="11" cy="11" r="5" />
+              <path d="M11 9v4M9 11h4" />
+              <path d="M20 20l-4.3-4.3" />
+            </svg>
+          </div>
+          <div class="crm_card-content">
+            <span class="crm_card-num">01</span>
+            <h3 class="crm_card-title">Find & Enrich Leads with AI</h3>
+            <p class="crm_card-desc">Discover ideal prospects and enrich with accurate data.</p>
+          </div>
+          <div class="crm_card-dot"></div>
+        </div>
+
+        <!-- Card 02 -->
+        <div class="module-card crm_card-02" data-id="02" style="--theme-color: #10b981; --theme-bg: rgba(16, 185, 129, 0.06);">
+          <div class="icon-box">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+              <circle cx="12" cy="12" r="10" />
+              <circle cx="12" cy="12" r="6" />
+              <circle cx="12" cy="12" r="2" />
+              <path d="M12 2v4M12 18v4M2 12h4M18 12h4" />
+            </svg>
+          </div>
+          <div class="crm_card-content">
+            <span class="crm_card-num">02</span>
+            <h3 class="crm_card-title">Lead Scoring</h3>
+            <p class="crm_card-desc">AI scores and ranks leads by buying intent.</p>
+          </div>
+          <div class="crm_card-dot"></div>
+        </div>
+
+        <!-- Card 03 -->
+        <div class="module-card crm_card-03" data-id="03" style="--theme-color: #8b5cf6; --theme-bg: rgba(139, 92, 246, 0.06);">
+          <div class="icon-box">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+              <line x1="22" y1="2" x2="11" y2="13" />
+              <polygon points="22 2 15 22 11 13 2 9 22 2" />
+            </svg>
+          </div>
+          <div class="crm_card-content">
+            <span class="crm_card-num">03</span>
+            <h3 class="crm_card-title">Sell & Run Campaigns</h3>
+            <p class="crm_card-desc">Create, automate, and run multi-channel campaigns that get replies.</p>
+          </div>
+          <div class="crm_card-dot"></div>
+        </div>
+
+        <!-- Card 04 -->
+        <div class="module-card crm_card-04" data-id="04" style="--theme-color: #f59e0b; --theme-bg: rgba(245, 158, 11, 0.06);">
+          <div class="icon-box">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+              <polyline points="22 12 16 12 14 15 10 15 8 12 2 12" />
+              <path d="M5.45 5.11L2 12v6a2 2 0 0 0 2 2h16a2 2 0 0 0 2-2v-6l-3.45-6.89A2 2 0 0 0 16.76 4H7.24a2 2 0 0 0-1.79 1.11z" />
+            </svg>
+          </div>
+          <div class="crm_card-content">
+            <span class="crm_card-num">04</span>
+            <h3 class="crm_card-title">Every Channel, One Inbox</h3>
+            <p class="crm_card-desc">Manage all conversations across WhatsApp, Email, Calls, SMS & more — in one shared inbox.</p>
+          </div>
+          <div class="crm_card-dot" style="border-color: #ec4899;"></div> <!-- matches pink line color from image -->
+        </div>
+
+        <!-- Card 05 (Not connected) -->
+        <div class="module-card crm_card-05" data-id="05" style="--theme-color: #ec4899; --theme-bg: rgba(236, 72, 153, 0.06);">
+          <div class="icon-box">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+              <rect x="3" y="4" width="18" height="18" rx="2" ry="2" />
+              <line x1="16" y1="2" x2="16" y2="6" />
+              <line x1="8" y1="2" x2="8" y2="6" />
+              <line x1="3" y1="10" x2="21" y2="10" />
+            </svg>
+          </div>
+          <div class="crm_card-content">
+            <span class="crm_card-num">05</span>
+            <h3 class="crm_card-title">Book & Manage Appointments</h3>
+            <p class="crm_card-desc">Read calendars, book best slots, send confirmations and reminders automatically.</p>
+          </div>
+        </div>
+      </div>
+
+      <!-- Center Column -->
+      <div class="crm_column center-column">
+        <span class="powerful-pill">9 POWERFUL MODULES</span>
+        
+        <div class="circle-outer">
+          <div class="circle-logo">
+            <svg viewBox="0 0 100 100">
+              <!-- Geometric A logo -->
+              <path d="M50 12 L88 88 L68 88 L50 50 L32 88 L12 88 Z" fill="#0052ff" />
+              <path d="M50 40 L58 60 L42 60 Z" fill="#0052ff" />
+            </svg>
+            <h3>rTechCoding</h3>
+            <p>AI Sales Platform</p>
+          </div>
+          
+          <!-- Circle perimeter dots -->
+          <div class="circle-point pt-01" style="--theme-color: #0052ff;"></div>
+          <div class="circle-point pt-02" style="--theme-color: #10b981;"></div>
+          <div class="circle-point pt-03" style="--theme-color: #8b5cf6;"></div>
+          <div class="circle-point pt-04" style="--theme-color: #ec4899;"></div> <!-- pink dot for card 4 link -->
+          <div class="circle-point pt-06" style="--theme-color: #06b6d4;"></div>
+          <div class="circle-point pt-07" style="--theme-color: #8b5cf6;"></div>
+          <div class="circle-point pt-08" style="--theme-color: #f59e0b;"></div>
+          <div class="circle-point pt-09" style="--theme-color: #10b981;"></div>
+          <div class="circle-point pt-10" style="--theme-color: #8b5cf6;"></div>
+        </div>
+
+        <!-- Card 06 -->
+        <div class="module-card crm_card-06" data-id="06" style="--theme-color: #06b6d4; --theme-bg: rgba(6, 182, 212, 0.06); width: 100%;">
+          <div class="icon-box">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+              <rect x="3" y="11" width="18" height="10" rx="2" />
+              <circle cx="12" cy="5" r="2" />
+              <path d="M12 7v4" />
+              <line x1="8" y1="16" x2="8" y2="16.01" />
+              <line x1="16" y1="16" x2="16" y2="16.01" />
+              <path d="M9 19h6" />
+            </svg>
+          </div>
+          <div class="crm_card-content">
+            <span class="crm_card-num">06</span>
+            <h3 class="crm_card-title">Surveys, Read by AI</h3>
+            <p class="crm_card-desc">Create surveys and let AI analyse sentiment, themes and NPS instantly.</p>
+          </div>
+          <div class="crm_card-dot"></div>
+        </div>
+      </div>
+
+      <!-- Right Column (07-10) -->
+      <div class="crm_column right-column">
+        <!-- Card 07 -->
+        <div class="module-card crm_card-07" data-id="07" style="--theme-color: #8b5cf6; --theme-bg: rgba(139, 92, 246, 0.06);">
+          <div class="icon-box">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+              <path d="M4 19.5A2.5 2.5 0 0 1 6.5 17H20" />
+              <path d="M6.5 2H20v20H6.5A2.5 2.5 0 0 1 4 19.5v-15A2.5 2.5 0 0 1 6.5 2z" />
+            </svg>
+          </div>
+          <div class="crm_card-content">
+            <span class="crm_card-num">07</span>
+            <h3 class="crm_card-title">Knowledge Base</h3>
+            <p class="crm_card-desc">Centralise your knowledge and let Sara answer instantly — policies, prices, templates & more.</p>
+          </div>
+          <div class="crm_card-dot"></div>
+        </div>
+
+        <!-- Card 08 -->
+        <div class="module-card crm_card-08" data-id="08" style="--theme-color: #f59e0b; --theme-bg: rgba(245, 158, 11, 0.06);">
+          <div class="icon-box">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+              <line x1="18" y1="20" x2="18" y2="10" />
+              <line x1="12" y1="20" x2="12" y2="4" />
+              <line x1="6" y1="20" x2="6" y2="14" />
+            </svg>
+          </div>
+          <div class="crm_card-content">
+            <span class="crm_card-num">08</span>
+            <h3 class="crm_card-title">Reports & Analytics</h3>
+            <p class="crm_card-desc">Track revenue, leads, conversion and campaign performance with live dashboards.</p>
+          </div>
+          <div class="crm_card-dot"></div>
+        </div>
+
+        <!-- Card 09 -->
+        <div class="module-card crm_card-09" data-id="09" style="--theme-color: #10b981; --theme-bg: rgba(16, 185, 129, 0.06);">
+          <div class="icon-box">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+              <circle cx="12" cy="12" r="10" />
+              <circle cx="12" cy="12" r="6" />
+              <circle cx="12" cy="12" r="2" />
+              <path d="M12 2v4M12 18v4M2 12h4M18 12h4" />
+            </svg>
+          </div>
+          <div class="crm_card-content">
+            <span class="crm_card-num">09</span>
+            <h3 class="crm_card-title">Lead Management</h3>
+            <p class="crm_card-desc">Pipeline view from discovery to closed deal with AI-suggested next steps and follow-ups.</p>
+          </div>
+          <div class="crm_card-dot"></div>
+        </div>
+
+        <!-- Card 10 -->
+        <div class="module-card crm_card-10" data-id="10" style="--theme-color: #8b5cf6; --theme-bg: rgba(139, 92, 246, 0.06);">
+          <div class="icon-box">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+              <path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2" />
+              <circle cx="9" cy="7" r="4" />
+              <path d="M23 21v-2a4 4 0 0 0-3-3.87" />
+              <path d="M16 3.13a4 4 0 0 1 0 7.75" />
+            </svg>
+          </div>
+          <div class="crm_card-content">
+            <span class="crm_card-num">10</span>
+            <h3 class="crm_card-title">Customer Management</h3>
+            <p class="crm_card-desc">360° customer view with order history, health scores, conversations and preferences.</p>
+          </div>
+          <div class="crm_card-dot"></div>
+        </div>
+      </div>
+
+    </div>
+  </div>
+
+  <!-- Footer Bar -->
+  <div class="footer-bar-container">
+    <div class="footer-bar">
+      <div class="footer-item">
+        <div class="footer-icon">
+          <svg viewBox="0 0 24 24" fill="none" stroke="#0052ff" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+            <polygon points="12 2 15 9 22 12 15 15 12 22 9 15 2 12 9 9" />
+          </svg>
+        </div>
+        <span>AI-Powered Automation</span>
+      </div>
+      <div class="footer-divider"></div>
+      <div class="footer-item">
+        <div class="footer-icon">
+          <svg viewBox="0 0 24 24" fill="none" stroke="#10b981" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+            <circle cx="18" cy="5" r="3" />
+            <circle cx="6" cy="12" r="3" />
+            <circle cx="18" cy="19" r="3" />
+            <line x1="8.59" y1="13.51" x2="15.42" y2="17.49" />
+            <line x1="8.59" y1="10.49" x2="15.42" y2="6.51" />
+          </svg>
+        </div>
+        <span>Omnichannel Engagement</span>
+      </div>
+      <div class="footer-divider"></div>
+      <div class="footer-item">
+        <div class="footer-icon">
+          <svg viewBox="0 0 24 24" fill="none" stroke="#8b5cf6" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+            <path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z" />
+            <circle cx="12" cy="11" r="1.5" />
+            <path d="M12 12.5V15" />
+          </svg>
+        </div>
+        <span>Enterprise Grade Security</span>
+      </div>
+      <div class="footer-divider"></div>
+      <div class="footer-item">
+        <div class="footer-icon">
+          <svg viewBox="0 0 24 24" fill="none" stroke="#f59e0b" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+            <circle cx="12" cy="12" r="3" />
+            <path d="M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 1 1-2.83 2.83l-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1 1.51V21a2 2 0 0 1-4 0v-.09A1.65 1.65 0 0 0 9 19.4a1.65 1.65 0 0 0-1.82.33l-.06.06a2 2 0 1 1-2.83-2.83l.06-.06a1.65 1.65 0 0 0 .33-1.82 1.65 1.65 0 0 0-1.51-1H3a2 2 0 0 1 0-4h.09A1.65 1.65 0 0 0 4.6 9a1.65 1.65 0 0 0-.33-1.82l-.06-.06a2 2 0 1 1 2.83-2.83l.06.06a1.65 1.65 0 0 0 1.82.33H9a1.65 1.65 0 0 0 1-1.51V3a2 2 0 0 1 4 0v.09a1.65 1.65 0 0 0 1 1.51 1.65 1.65 0 0 0 1.82-.33l.06-.06a2 2 0 1 1 2.83 2.83l-.06.06a1.65 1.65 0 0 0-.33 1.82V9a1.65 1.65 0 0 0 1.51 1H21a2 2 0 0 1 0 4h-.09a1.65 1.65 0 0 0-1.51 1z" />
+          </svg>
+        </div>
+        <span>Easy to Use No Code</span>
+      </div>
+      <div class="footer-divider"></div>
+      <div class="footer-item">
+        <div class="footer-icon">
+          <svg viewBox="0 0 24 24" fill="none" stroke="#06b6d4" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+            <path d="M18 10h-1.26A8 8 0 1 0 9 20h9a5 5 0 0 0 0-10z" />
+          </svg>
+        </div>
+        <span>Cloud Based Always On</span>
+      </div>
+    </div>
+  </div>
+
+  <!-- CTA -->
+  <div class="cta-container">
+    <a href="#" class="cta-btn">
+      Explore All Modules
+      <svg class="cta-arrow" viewBox="0 0 24 24" width="16" height="16">
+        <path d="M5 12h14M12 5l7 7-7 7" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" fill="none"/>
+      </svg>
+    </a>
+  </div>
+
+  <script>
+    const svg = document.getElementById('connector-svg');
+
+    function drawLines() {
+      if (window.innerWidth < 1024) return;
+      const svgRect = svg.getBoundingClientRect();
+
+      const paths = document.querySelectorAll('.connector-path');
+      paths.forEach(path => {
+        const fromEl = document.querySelector(path.dataset.from);
+        const toEl = document.querySelector(path.dataset.to);
+
+        if (fromEl && toEl) {
+          const fromRect = fromEl.getBoundingClientRect();
+          const toRect = toEl.getBoundingClientRect();
+
+          const x1 = fromRect.left + fromRect.width / 2 - svgRect.left;
+          const y1 = fromRect.top + fromRect.height / 2 - svgRect.top;
+
+          const x2 = toRect.left + toRect.width / 2 - svgRect.left;
+          const y2 = toRect.top + toRect.height / 2 - svgRect.top;
+
+          let d = '';
+          if (path.dataset.style === 'straight') {
+            d = `M ${x1} ${y1} L ${x2} ${y2}`;
+          } else {
+            const isLeft = x2 < x1;
+            const bx = isLeft ? x2 + 25 : x2 - 25;
+            d = `M ${x1} ${y1} L ${bx} ${y2} L ${x2} ${y2}`;
+          }
+
+          path.setAttribute('d', d);
+
+          // Extract and apply card theme color to the connector path
+          const card = toEl.closest('.module-card');
+          if (card) {
+            const themeColor = getComputedStyle(card).getPropertyValue('--theme-color').trim();
+            path.style.setProperty('--theme-color', themeColor);
+          }
+        }
+      });
+    }
+
+    // Set up hover states
+    const cards = document.querySelectorAll('.module-card');
+    cards.forEach(card => {
+      card.addEventListener('mouseenter', () => {
+        const id = card.dataset.id;
+        const path = document.querySelector(`.connector-path[data-module="${id}"]`);
+        if (path) path.classList.add('active');
+      });
+      card.addEventListener('mouseleave', () => {
+        const id = card.dataset.id;
+        const path = document.querySelector(`.connector-path[data-module="${id}"]`);
+        if (path) path.classList.remove('active');
+      });
+    });
+
+    // Run layout adjustments
+    window.addEventListener('load', drawLines);
+    window.addEventListener('resize', drawLines);
+    document.fonts.ready.then(drawLines);
+  </script>
+</body>
+</html>
